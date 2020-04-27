@@ -1,9 +1,9 @@
 # Project: COVID-19 and EM Debt
 
 ## Contributors 
-* Prof. Joshua Aizenman (aizenman@usc.edu) 
-* Prof. Yothin Jinjarak (yothin.jinjarak@vuw.ac.nz) 
-* Timo Daehler (daehler@usc.edu) 
+* Prof. Joshua Aizenman (aizenman@usc.edu or josh.aizenman@gmail.com) 
+* Prof. Yothin Jinjarak (yothin.jinjarak@vuw.ac.nz or yothin.jinjarak@gmail.com) 
+* Timo Daehler (daehler@usc.edu or timo.daehler@gmail.com) 
 
 ## GitHub respository
 Here's the [link](https://github.com/timodaehler/COVID19DEBT.git) to the GitHub repository. 
