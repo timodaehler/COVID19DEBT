@@ -21,11 +21,10 @@ https://www.ishares.com/us/products/239572/ishares-jp-morgan-usd-emerging-market
 This data was obtained on Saturday 25 April 2020. 
 
 I saw that some potentially interesting and important markets were not in the EMBI, for example
-India, Thailand and South Korea, which is why I am adding those to the sample. (See code below).
+India and Thailand, which is why I am adding those to the sample. (See code below).
 
 In addition, we originally talked about only including emerging markets with a Debt/GDP ratio above 
-a threshold of 10% or 20%. To find out which ones those are, I first downloaded the Debt/GDP ratio of
-all avaiable countries from the IMF's global debt database. 
+a threshold of 10% or 20%. To find out which ones those are, I first downloaded the Debt/GDP ratio of all avaiable countries from the IMF's global debt database. 
 https://www.imf.org/external/datamapper/CG_DEBT_GDP@GDD/FADGDWORLD
 I chose the indicator "Central Government Debt" for e.o.y. 2018 as 2019 was not comprehensive. 
 I saved the data to IMF.xls
