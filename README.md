@@ -1,12 +1,26 @@
 # Project: COVID-19 and EM Debt
 
-## Contributors 
+## Brief description
+This project looks at COVID-19 policies of emerging markets and their influence on sovereign bond spreads. 
+
+
+## Contributors & contact information
 * Prof. Joshua Aizenman (aizenman@usc.edu or josh.aizenman@gmail.com) 
 * Prof. Yothin Jinjarak (yothin.jinjarak@vuw.ac.nz or yothin.jinjarak@gmail.com) 
 * Timo Daehler (daehler@usc.edu or timo.daehler@gmail.com) 
 
-## GitHub respository
-Here's the [link](https://github.com/timodaehler/COVID19DEBT.git) to the GitHub repository. 
+## Structure of folder
+Note: This folder is a also available as a GitHub respository ([link](https://github.com/timodaehler/COVID19DEBT.git)). The folder structure contains the following elements: 
+
+* Data (contains the data, both raw and edited)
+* Figures (contains output figures of scripts)
+* Scripts (contains the different codes that make up the project)
+* Functions (contains specific functions that were created as part of the project)
+
+
+
+## Dropbox
+Administrative things 
 
 ## Read me
 This project/repository contains all the R Scripts, data, and output and is work in progress. While sometimes time-intensive to read, the R scripts in this project are annotated in detail to alleviate minor amnesias and to make the code ready for collaboration and external review.

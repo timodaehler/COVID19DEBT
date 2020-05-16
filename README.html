@@ -367,17 +367,31 @@ summary {
 
 <div id="project-covid-19-and-em-debt" class="section level1">
 <h1>Project: COVID-19 and EM Debt</h1>
-<div id="contributors" class="section level2">
-<h2>Contributors</h2>
+<div id="brief-description" class="section level2">
+<h2>Brief description</h2>
+<p>This project looks at COVID-19 policies of emerging markets and their influence on sovereign bond spreads.</p>
+</div>
+<div id="contributors-contact-information" class="section level2">
+<h2>Contributors &amp; contact information</h2>
 <ul>
-<li>Prof. Joshua Aizenman (<a href="mailto:aizenman@usc.edu" class="email">aizenman@usc.edu</a>)</li>
-<li>Prof. Yothin Jinjarak (<a href="mailto:yothin.jinjarak@vuw.ac.nz" class="email">yothin.jinjarak@vuw.ac.nz</a>)</li>
-<li>Timo Daehler (<a href="mailto:daehler@usc.edu" class="email">daehler@usc.edu</a>)</li>
+<li>Prof. Joshua Aizenman (<a href="mailto:aizenman@usc.edu" class="email">aizenman@usc.edu</a> or <a href="mailto:josh.aizenman@gmail.com" class="email">josh.aizenman@gmail.com</a>)</li>
+<li>Prof. Yothin Jinjarak (<a href="mailto:yothin.jinjarak@vuw.ac.nz" class="email">yothin.jinjarak@vuw.ac.nz</a> or <a href="mailto:yothin.jinjarak@gmail.com" class="email">yothin.jinjarak@gmail.com</a>)</li>
+<li>Timo Daehler (<a href="mailto:daehler@usc.edu" class="email">daehler@usc.edu</a> or <a href="mailto:timo.daehler@gmail.com" class="email">timo.daehler@gmail.com</a>)</li>
 </ul>
 </div>
-<div id="github-respository" class="section level2">
-<h2>GitHub respository</h2>
-<p>Here’s the <a href="https://github.com/timodaehler/COVID19DEBT.git">link</a> to the GitHub repository.</p>
+<div id="structure-of-folder" class="section level2">
+<h2>Structure of folder</h2>
+<p>Note: This folder is a also available as a GitHub respository (<a href="https://github.com/timodaehler/COVID19DEBT.git">link</a>). The folder structure contains the following elements:</p>
+<ul>
+<li>Data (contains the data, both raw and edited)</li>
+<li>Figures (contains output figures of scripts)</li>
+<li>Scripts (contains the different codes that make up the project)</li>
+<li>Functions (contains specific functions that were created as part of the project)</li>
+</ul>
+</div>
+<div id="dropbox" class="section level2">
+<h2>Dropbox</h2>
+<p>Administrative things</p>
 </div>
 <div id="read-me" class="section level2">
 <h2>Read me</h2>
@@ -387,25 +401,8 @@ summary {
 <div id="documentation" class="section level2">
 <h2>Documentation</h2>
 <p>In a first step, we had to choose which emerging markets we want to investigate. We made the constituents of the JPMorgan EMBI the main observations. I looked up which markets the EMBI comprosies. It appears that there’s 31 countries in the index. <a href="https://www.ishares.com/us/products/239572/ishares-jp-morgan-usd-emerging-markets-bond-etf" class="uri">https://www.ishares.com/us/products/239572/ishares-jp-morgan-usd-emerging-markets-bond-etf</a> This data was obtained on Saturday 25 April 2020.</p>
-<p>I saw that some potentially interesting and important markets were not in the EMBI, for example India, Thailand and South Korea, which is why I am adding those to the sample. (See code below).</p>
+<p>I saw that some potentially interesting and important markets were not in the EMBI, for example India and Thailand, which is why I am adding those to the sample. (See code below).</p>
 <p>In addition, we originally talked about only including emerging markets with a Debt/GDP ratio above a threshold of 10% or 20%. To find out which ones those are, I first downloaded the Debt/GDP ratio of all avaiable countries from the IMF’s global debt database. <a href="https://www.imf.org/external/datamapper/CG_DEBT_GDP@GDD/FADGDWORLD" class="uri">https://www.imf.org/external/datamapper/CG_DEBT_GDP@GDD/FADGDWORLD</a> I chose the indicator “Central Government Debt” for e.o.y. 2018 as 2019 was not comprehensive. I saved the data to IMF.xls Next, I checked which countries the IMF classifies as Emerging Markets as per October 2019. <a href="https://www.imf.org/~/media/Files/Publications/WEO/2019/October/English/text.ashx?la=en" class="uri">https://www.imf.org/~/media/Files/Publications/WEO/2019/October/English/text.ashx?la=en</a> p. 166 - 167 contains the list of countries classified as EM by the IMF. I hand-coded the EM classified countries as 1 in the IMF.xls sheet. All other countries are coded 0.</p>
-<p>PRELIMINARY ANALYSIS</p>
-<p>getting and seeting the working directory getwd() setwd(“/Users/timodaehler/Desktop”)</p>
-<p>loading required packages library(readxl) library(dplyr)</p>
-<p>importing the IMF.xls sheet, which contains all country for which Debt/GDP in 2018 is avaiable imfDF &lt;- read_excel(“IMF.xls”, sheet = 1)</p>
-<p>Format of debt ratio needs to be changed to numeric imfDF<span class="math inline">\(Debt &lt;- as.numeric(imfDF\)</span>Debt)</p>
-<p>filtering for EM countries and creating dataframe that only contains emerging markets EMOnlyDF &lt;- imfDF %&gt;% filter(EM == 1)</p>
-<p>counting number of countries in dataframe nrow(EMOnlyDF) 88 countries are classified as developing or emerging market</p>
-<p>filtering for emerging markets with debt ratio above threshold threshold &lt;- 20 EMOnlyDF %&gt;% filter(Debt &gt; threshold) 77 of 88 EM countries have Debt/GDP above 20%.</p>
-<p>I increase the threshold to 50% threshold &lt;- 50 EMOnlyDF %&gt;% filter(Debt &gt; threshold) 41 of 88 EM countries have Debt/GDP above 20%. Many of them are countries from Africa, South America, the Carribean or Central Asian. While there is of course some overlap, crucial countries such as China, India, and Brazil would not be in the sample. I conclude that the EMBI constituents should be used instead of a threshold approach.</p>
-<p>In the next step I visualize the EMBI countries.</p>
-<p>Loading packages library(rworldmap)</p>
-<p>Creating the vector of the 31 countries in the EMBI EMBICountries &lt;- c(“IDN”, “MEX”, “SAU”, “RUS”, “QAT”, “PHL”, “CHN”, “TUR”, “ARE”, “BRA”, “COL”, “KAZ”, “CHL”, “ZAF”, “PER”, “PAN”, “URY”, “DOM”, “EGY”, “BHR”, “OMN”, “UKR”, “MYS”, “HUN”, “LKA”, “NGA”, “POL”, “GHA”, “ARG”, “AZE”, “ROU”) Checking if there are 31 countries in the EMBI vector length(EMBICountries) == 31 Check result: positive</p>
-<p>Creating the vector of the 3 countries I would add on top (India, Thailand, South Korea) additionalCountries &lt;- c(“IND”, “THA”, “KOR”)</p>
-<p>Combining all countries allCountries &lt;- c(EMBICountries, theCountriesIWouldAdd)</p>
-<p>allCountriesDF is a data.frame with the ISO3 country names plus a variable to merge to the map data. The variable is 1 for EMBI countries and 2 for additional countries allCountriesDF &lt;- data.frame(country = allCountries, EMBI = c(rep.int(1, 31), rep.int(2,3)) )</p>
-<p>This will join the allCountriesDF data.frame to the country map data allCountriesMap &lt;- joinCountryData2Map(allCountriesDF, joinCode = “ISO3”, nameJoinColumn = “country”)</p>
-<p>And this will plot it, with the trick that the color palette’s first color is red mapCountryData(allCountriesMap, nameColumnToPlot=“EMBI”, catMethod = “categorical”, missingCountryCol = gray(.8), addLegend = FALSE)</p>
 </div>
 </div>
 

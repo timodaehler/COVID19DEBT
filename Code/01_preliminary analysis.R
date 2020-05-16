@@ -1,4 +1,9 @@
-# PRELIMINARY ANALYSIS, 27 April 2020
+#Author: Timo Daehler, daehler@usc.edu
+#Date of last update: 28 April 2020
+#Purpose: preliminary analysis and choice of countries that should be in the sample
+#Inputs: -
+#Outputs: figures
+#Other relevant notes: 
 
 
 #loading required packages
@@ -8,7 +13,7 @@ library(dplyr)
 library(rworldmap)
 
 #importing the IMF.xls sheet, which contains all country for which Debt/GDP in 2018 is avaiable
-imfDF <- read_excel("IMF.xls", sheet = 1)  
+imfDF <- read_excel("/Users/timodaehler/Desktop/COVID19DEBT/Data/IMF.xls", sheet = 1)  
 
 #Format of debt ratio needs to be changed to numeric
 imfDF$Debt <- as.numeric(imfDF$Debt) 
