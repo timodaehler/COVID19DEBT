@@ -231,13 +231,13 @@ rawDF <- mutate(rawDF,
 ##Let's start with the analysis
 ############################################################################################################################################
 #Here I create a visual overview of which data is available and which one is not. For best view click on "zoom"
-vis_miss(rawDF) + theme(text = element_text(size=7), axis.text.x = element_text(angle = 90))
+vis_miss(rawDF) + theme(text = element_text(size=5), axis.text.x = element_text(angle = 90))
 #Upon inspection of the graph we can see that there is not a lot that we can can gain fro the visual representation
 #of missing values. While we can observe that overall we have decent data availability, there are clearly many variables for whic
 #data is relatively scarce, which might mean that we will have only data on few observations.
 
 #I save this visual overview
-ggsave("missingdata.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+ggsave("missingdata.png", width=20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 
@@ -336,10 +336,13 @@ corr <- round(cor(cleanSpreadDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "All predictors vs spread", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_spread_vs_all.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanSpreadDF, title = "All predictors vs spread",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=3))
+ggsave("Corrmatrix_spread_vs_all.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 
 #It turns out that all these contain a lot of variables and may not aid too much in terms of interpretation. 
 #Hence I create smaller matrices with fewer variables
@@ -359,10 +362,13 @@ corr <- round(cor(cleanSpreadDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Covid predictors vs spread", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_spread_vs_covid.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanSpreadDF, title = "Covid predictors vs spread",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_spread_vs_covid.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -379,14 +385,17 @@ corr <- round(cor(cleanSpreadDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Fiscal variables vs spread", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_spread_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanSpreadDF, title = "Fiscal predictors vs spread",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_spread_vs_fiscal.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs moneatary variables
+#Creating a dataframe for spread vs monetary variables
 SpreadDF <- select(rawDF, SPREAD_CHANGE_2020_JAN_APR, possiblePredictorsMonetary)
 numberOfObservationsBeforeNaRemoval <- nrow(SpreadDF)
 cleanSpreadDF <- na.omit(SpreadDF)
@@ -399,10 +408,13 @@ corr <- round(cor(cleanSpreadDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Monetary predictors vs spread", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_spread_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc
 ggpairs(cleanSpreadDF, title = "Monetary predictors vs spread",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_spread_vs_monetary.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -419,10 +431,13 @@ corr <- round(cor(cleanSpreadDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Oil predictors vs spread", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_spread_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc
 ggpairs(cleanSpreadDF, title = "Oil predictors vs spread",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_spread_vs_oil.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 
@@ -450,13 +465,13 @@ corr <- round(cor(cleanYieldDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "All predictors vs yield", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_yield_vs_all.png", width=20, height =20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanYieldDF, title = "All predictors vs yield",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=3))
+ggsave("Corrmatrix_yield_vs_all.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
-#It turns out that all these contain a lot of variables and may not aid too much in terms of interpretation. 
-#Hence I create smaller matrices with fewer variables
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -473,10 +488,12 @@ corr <- round(cor(cleanYieldDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Covid predictors vs yield", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_yield_vs_covid.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. 
 ggpairs(cleanYieldDF, title = "Covid predictors vs yield",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_yield_vs_covid.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -493,10 +510,12 @@ corr <- round(cor(cleanYieldDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Fiscal predictors vs yield", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_yield_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanYieldDF, title = "Fiscal predictors vs yield",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_yield_vs_fiscal.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -513,14 +532,16 @@ corr <- round(cor(cleanYieldDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Monetary predictors vs yield", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_yield_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. 
 ggpairs(cleanYieldDF, title = "Monetary predictors vs yield",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_yield_vs_monetary.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs oil variables
+#Creating a dataframe for yield vs oil variables
 YieldDF <- select(rawDF, YIELD_CHANGE_2020_JAN_APR, possiblePredictorsOil)
 numberOfObservationsBeforeNaRemoval <- nrow(YieldDF)
 cleanYieldDF <- na.omit(YieldDF)
@@ -533,10 +554,12 @@ corr <- round(cor(cleanYieldDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Oil predictors vs yield", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_yield_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. 
 ggpairs(cleanYieldDF, title = "Oil predictors vs yield",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_yield_vs_oil.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 
@@ -570,14 +593,17 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "All predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_cds_vs_all.png", width=20, height =20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanCDSDF, title = "All predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=3))
+ggsave("Corrmatrix_cds_vs_all.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs covid variables
+#Creating a dataframe for cds vs covid variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsCovid)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -590,6 +616,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Covid predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_cds_vs_covid.png",  path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Covid predictors vs CDS",
@@ -597,7 +624,7 @@ ggpairs(cleanCDSDF, title = "Covid predictors vs CDS",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs fiscal variables
+#Creating a dataframe for cds vs fiscal variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsFiscal)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -610,6 +637,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Fiscal predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_cds_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
@@ -617,7 +645,7 @@ ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs moneatary variables
+#Creating a dataframe for cds vs moneatary variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsMonetary)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -630,6 +658,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Monetary predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_cds_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
@@ -637,7 +666,7 @@ ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs oil variables
+#Creating a dataframe for cds vs oil variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsOil)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -650,6 +679,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Oil predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_cds_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Oil predictors vs CDS",
@@ -680,6 +710,7 @@ corr <- round(cor(cleanFXDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "All predictors vs FX change", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_fx_vs_all.png", width=20, height =20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanFXDF, title = "All predictors vs FX Change",
@@ -687,7 +718,7 @@ ggpairs(cleanFXDF, title = "All predictors vs FX Change",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs covid variables
+#Creating a dataframe for fx change vs covid variables
 FXDF <- select(rawDF, FX_CHANGE_2020_JAN_APR, possiblePredictorsCovid)
 numberOfObservationsBeforeNaRemoval <- nrow(FXDF)
 cleanFXDF <- na.omit(FXDF)
@@ -700,6 +731,7 @@ corr <- round(cor(cleanFXDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Covid predictors vs FX change", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_fx_vs_covid.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanFXDF, title = "Covid predictors vs FX Change",
@@ -707,7 +739,7 @@ ggpairs(cleanFXDF, title = "Covid predictors vs FX Change",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs fiscal variables
+#Creating a dataframe for fx change vs fiscal variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsFiscal)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -720,6 +752,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Fiscal predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_fx_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
@@ -727,7 +760,7 @@ ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs monetary variables
+#Creating a dataframe for fx change vs monetary variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsMonetary)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -740,6 +773,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Monetary predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_fx_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
@@ -747,7 +781,7 @@ ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
 ############################################################################################################################################
 
 ############################################################################################################################################
-#Creating a dataframe for spread vs oil variables
+#Creating a dataframe for fx change vs oil variables
 CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsOil)
 numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
 cleanCDSDF <- na.omit(CDSDF)
@@ -760,6 +794,7 @@ corr <- round(cor(cleanCDSDF), 1)
 #Creating the plot based on the correlation data matrix
 ggcorrplot(corr, title = "Oil predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
+ggsave("Corrplot_fx_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Oil predictors vs CDS",
