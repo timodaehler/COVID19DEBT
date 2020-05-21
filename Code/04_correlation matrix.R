@@ -13,6 +13,7 @@
 #install.packages("GGally")
 #install.packages("naniar")
 #install.packages("ggcorrplot")
+#install.packages("arm")
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -28,6 +29,7 @@ library(PerformanceAnalytics)
 library(GGally)
 library(naniar)
 library(ggcorrplot)
+#library(arm)
 
 #importing the Data.xls sheet
 rawDF <- read_excel("/Users/timodaehler/Desktop/COVID19DEBT/Data/Data.xlsx", sheet = 1)
@@ -620,7 +622,8 @@ ggsave("Corrplot_cds_vs_covid.png",  path = "/Users/timodaehler/Desktop/COVID19D
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Covid predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_cds_vs_covid.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -641,7 +644,8 @@ ggsave("Corrplot_cds_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19D
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_cds_vs_fiscal.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -662,7 +666,8 @@ ggsave("Corrplot_cds_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID1
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_cds_vs_monetary.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -683,7 +688,8 @@ ggsave("Corrplot_cds_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
 ggpairs(cleanCDSDF, title = "Oil predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_cds_vs_oil.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 
@@ -714,7 +720,8 @@ ggsave("Corrplot_fx_vs_all.png", width=20, height =20, path = "/Users/timodaehle
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanFXDF, title = "All predictors vs FX Change",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=3))
+ggsave("Corrmatrix_fx_vs_all.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
@@ -735,70 +742,74 @@ ggsave("Corrplot_fx_vs_covid.png", path = "/Users/timodaehler/Desktop/COVID19DEB
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc. HARD TO READ
 ggpairs(cleanFXDF, title = "Covid predictors vs FX Change",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_fx_vs_covid.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
 #Creating a dataframe for fx change vs fiscal variables
-CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsFiscal)
-numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
-cleanCDSDF <- na.omit(CDSDF)
-cleanCDSDF <- cleanCDSDF %>% mutate_all(as.numeric)
-numberOfObservationsAfterNaRemoval <- nrow(cleanCDSDF)
+FXDF <- select(rawDF, FX_CHANGE_2020_JAN_APR, possiblePredictorsFiscal)
+numberOfObservationsBeforeNaRemoval <- nrow(FXDF)
+cleanFXDF <- na.omit(FXDF)
+cleanFXDF <- cleanFXDF %>% mutate_all(as.numeric)
+numberOfObservationsAfterNaRemoval <- nrow(cleanFXDF)
 
 #Creating the correlation data matrix that can then be plotted in the next step
-corr <- round(cor(cleanCDSDF), 1)
+corr <- round(cor(cleanFXDF), 1)
 
 #Creating the plot based on the correlation data matrix
-ggcorrplot(corr, title = "Fiscal predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
+ggcorrplot(corr, title = "Fiscal vs FX chage", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
 ggsave("Corrplot_fx_vs_fiscal.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
-ggpairs(cleanCDSDF, title = "Fiscal predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+ggpairs(cleanFXDF, title = "Fiscal vs FX change",
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_fx_vs_fiscal.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
 #Creating a dataframe for fx change vs monetary variables
-CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsMonetary)
-numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
-cleanCDSDF <- na.omit(CDSDF)
-cleanCDSDF <- cleanCDSDF %>% mutate_all(as.numeric)
-numberOfObservationsAfterNaRemoval <- nrow(cleanCDSDF)
+FXDF <- select(rawDF, FX_CHANGE_2020_JAN_APR, possiblePredictorsMonetary)
+numberOfObservationsBeforeNaRemoval <- nrow(FXDF)
+cleanFXDF <- na.omit(FXDF)
+cleanFXDF <- cleanFXDF %>% mutate_all(as.numeric)
+numberOfObservationsAfterNaRemoval <- nrow(cleanFXDF)
 
 #Creating the correlation data matrix that can then be plotted in the next step
-corr <- round(cor(cleanCDSDF), 1)
+corr <- round(cor(cleanFXDF), 1)
 
 #Creating the plot based on the correlation data matrix
-ggcorrplot(corr, title = "Monetary predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
+ggcorrplot(corr, title = "Monetary predictors vs FX change", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
 ggsave("Corrplot_fx_vs_monetary.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
-ggpairs(cleanCDSDF, title = "Monetary predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+ggpairs(cleanFXDF, title = "Monetary predictors vs FX change",
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_fx_vs_monetary.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 ############################################################################################################################################
 #Creating a dataframe for fx change vs oil variables
-CDSDF <- select(rawDF, CDS_1YR_CHANGE_2020_JAN_APR, possiblePredictorsOil)
-numberOfObservationsBeforeNaRemoval <- nrow(CDSDF)
-cleanCDSDF <- na.omit(CDSDF)
-cleanCDSDF <- cleanCDSDF %>% mutate_all(as.numeric)
-numberOfObservationsAfterNaRemoval <- nrow(cleanCDSDF)
+FXDF <- select(rawDF, FX_CHANGE_2020_JAN_APR, possiblePredictorsOil)
+numberOfObservationsBeforeNaRemoval <- nrow(FXDF)
+cleanFXDF <- na.omit(FXDF)
+cleanFXDF <- cleanFXDF %>% mutate_all(as.numeric)
+numberOfObservationsAfterNaRemoval <- nrow(cleanFXDF)
 
 #Creating the correlation data matrix that can then be plotted in the next step
-corr <- round(cor(cleanCDSDF), 1)
+corr <- round(cor(cleanFXDF), 1)
 
 #Creating the plot based on the correlation data matrix
-ggcorrplot(corr, title = "Oil predictors vs CDS", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
+ggcorrplot(corr, title = "Oil predictors vs FX change", legend.title = "Correlation",  hc.order = FALSE, type = "lower",
            lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
 ggsave("Corrplot_fx_vs_oil.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 #Creating the intricate graph of correlation coefficients and scatterplots etc.
-ggpairs(cleanCDSDF, title = "Oil predictors vs CDS",
-        upper = list(continuous = wrap("cor", size = 3))) + theme(text = element_text(size=7))
+ggpairs(cleanFXDF, title = "Oil predictors vs FX change",
+        upper = list(continuous = wrap("cor", size = 7))) + theme(text = element_text(size=10))
+ggsave("Corrmatrix_fx_vs_oil.png", width = 20, height = 20, path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 ############################################################################################################################################
 
 
@@ -809,178 +820,32 @@ ggpairs(cleanCDSDF, title = "Oil predictors vs CDS",
 
 
 
-
-
-
-ggpairs(cleanSpreadDF,
-        upper = list(continuous = wrap("cor", size = 5))) + theme(text = element_text(size=7))
-
-
-data(cleanSpreadDF)
-corr <- round(cor(cleanSpreadDF), 1)
-head(corr[, 1:6])
-
-ggcorrplot(corr, hc.order = TRUE, type = "lower",
-           lab = TRUE, lab_size = 3, tl.cex=5, tl.srt=90) 
-
-
-
-
-
-
-
-
-
-M<-cor(cleanSpreadDF)
-M
-corrplot(M, method="number")
-
-
-
-
-
-
-possibleOutcomeVariables <- c("SPREAD_CHANGE_2020_JAN_APR", "YIELD_CHANGE_2020_JAN_APR", "CDS_1YR_CHANGE_2020_JAN_APR", "FX_CHANGE_2020_JAN_APR")
-
-
-selectionDF <- mutate(selectionDF, BORDER_CLOSURES_TRAVEL_RESTRICTIONS = as.numeric(BORDER_CLOSURES_TRAVEL_RESTRICTIONS), QUARANTINE = as.numeric(QUARANTINE), FX_INTERVENTIONS = as.numeric(FX_INTERVENTIONS), FED_SWAP_LINE = as.numeric(FED_SWAP_LINE)  )
-selectionDF <- na.omit(selectionDF)
-M<-cor(selectionDF[,-1])
-head(round(M,2))
-
-
-
-
-model1data <- rawDF %>% select(COUNTRY, possibleOutcomeVariables, possibleIndependentVariables )
-
-
 ############################################################################################################################################
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+##Regression models: spread as dependent variable
 ############################################################################################################################################
-#Creating a dataframe with all the possible independent and dependent variables of interest
-selectionDF <- rawDF %>% select(COUNTRY, possibleOutcomeVariables, possibleIndependentVariables )
-View(selectionDF)
+data <- rawDF
 
-#Viewing where the dataframe has missing values
-vis_miss(selectionDF)
-nrow(selectionDF) #it seems that we would only have data available for 16 countries
-############################################################################################################################################
+#########################################################
+#Dependent variable: SPREAD_CHANGE_2020_JAN_APR
+#########################################################
+#In these models I explain the change in the spread between 31.12.2019 and 30.4.2020 as a function of some
+#variables at the end of 2018, the end of 2019, and some things that happened in between January and April
 
-selectionDF <- mutate(selectionDF, BORDER_CLOSURES_TRAVEL_RESTRICTIONS = as.numeric(BORDER_CLOSURES_TRAVEL_RESTRICTIONS), QUARANTINE = as.numeric(QUARANTINE), FX_INTERVENTIONS = as.numeric(FX_INTERVENTIONS), FED_SWAP_LINE = as.numeric(FED_SWAP_LINE)  )
-selectionDF <- na.omit(selectionDF)
-M<-cor(selectionDF[,-1])
-head(round(M,2))
+model1 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ INFECTION_RATE_2020_04_20 + PUBLIC_DEBT_VS_TAX_2019 + RESERVE_VS_IMPORT_MONTHS_2019*FX_INTERVENTIONS + OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  , data = data )
+summary(model1)
 
-ncol(selectionDF)
+model2 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ INFECTION_RATE_2020_04_20 + PUBLIC_DEBT_VS_TAX_2019 + RESERVE_VS_IMPORT_MONTHS_2019*FX_INTERVENTIONS + OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  -1, data = data )
+summary(model2)
 
+model3 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ DEATH_RATE_2020_04_20 + PUBLIC_DEBT_VS_TAX_2019 + RESERVE_VS_IMPORT_MONTHS_2019 + OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  , data = data )
+summary(model3)
 
-selectionDF <- mutate(selectionDF, BORDER_CLOSURES_TRAVEL_RESTRICTIONS = as.numeric(BORDER_CLOSURES_TRAVEL_RESTRICTIONS), QUARANTINE = as.numeric(QUARANTINE), FX_INTERVENTIONS = as.numeric(FX_INTERVENTIONS), FED_SWAP_LINE = as.numeric(FED_SWAP_LINE)  )
+model4 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ DEATH_RATE_2020_04_20 + DEBT_VS_GDP_2018  + RESERVE_VS_IMPORT_MONTHS_2019 + OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  -1, data = data )
+summary(model4)
 
+model5 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ INFECTION_RATE_2020_04_20 + PUBLIC_DEBT_VS_TAX_2019 + RESERVE_VS_IMPORT_MONTHS_2019 + OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  -1, data = data )
+summary(model5)
 
-corrplot(M, method="number")
+model6 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ DEATH_RATE_2020_04_20 + DEBT_VS_GDP_2018  + RESERVE_VS_IMPORT_MONTHS_2019 + OIL_PRICE_TOTAL_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  -1, data = data )
+summary(model6)
 
-res <- cor(selectionDF[,-1])
-a<- round(res, 2)
-View(a)
-
-ggpairs(selectionDF[,-1], title="correlogram with ggpairs()") 
-
-rquery.cormat(selectionDF[,-1], type="upper")
-
-
-selectionDF <- rawDF %>% mutate(spread = SPREAD_CHANGE_2020_JAN_APR ) %>% select(COUNTRY, spread, DEATH_RATE_2020_04_20 )
-selectionDF <- na.omit(selectionDF)
-M<-cor(selectionDF[,-1])
-head(round(M,2))
-corrplot(M, method="number")
-
-
-
-############################################################################################################################################
-##MODEL 1: spread
-
-#Creating dataframe
-spreadDF <- selectionDF %>% select(COUNTRY, SPREAD_CHANGE_2020_JAN_APR, INFECTION_RATE_2020_04_20, DEBT_VS_GDP_2018, PUBLIC_DEBT_VS_TAX_2019, S_T_EXTERNAL_DEBT_VS_RESERVES_2019, RESERVE_VS_IMPORT_MONTHS_2019 )
-cleanspreadDF <- na.omit(spreadDF)
-vis_miss(cleanspreadDF)
-nrow(cleanspreadDF)
-
-
-
-
-
-Model1 <- rawDF %>% select(COUNTRY, )
-new <- select(rawDF, COUNTRY, dependentVariables, independentVariablesCovid, independentVariablesFiscal, independentVariablesMonetary, independentVariablesTrade) 
-View(new)
-nrow(new)
-newnew <- na.omit(new)
-nrow(newnew)
-
-
-selectedVariables <- c("DEBT_VS_GDP_2018", "RESERVES_VS_STD_2019","CDS_1YR_CHANGE_2020_JAN_APR", "SWF_VOLUME")
-
-shortDF <-  rawDF %>%
-            select(all_of(selectedVariables))
-
-shortDF <- na.omit(shortDF)
-head(shortDF)
-  
-
-
-
-M<-cor(shortDF)
-head(round(M,2))
-
-
-
-ggpairs(shortDF, title="correlogram with ggpairs()") 
-ggsave("1.pdf", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
-
-pdf(file = "yourfilename.pdf")
-
-#corrplot(correlations_history, method = "number", type = "lower", 
-#         title = "Regional Factor Correlation Matrix over history", 
-#         mar = c(0,0,1,0), number.cex = 0.5, number.digits = 2)
-
-
-chart.Correlation(shortDF, histogram=TRUE, pch=19)
-#ggsave("2.pdf", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
-dev.off()
-
-
-
-
-#Creating a vector with the country names
-#countryNameVector <- select(rawDF, COUNTRY)
