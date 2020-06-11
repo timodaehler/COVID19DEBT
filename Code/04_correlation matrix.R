@@ -14,6 +14,13 @@
 #install.packages("naniar")
 #install.packages("ggcorrplot")
 #install.packages("arm")
+#install.packages("stargazer") 
+#install.packages("stevemisc")
+#install.packages("rticles")
+library(stevemisc)
+library(rticles)
+library(ggplot2)
+library(stargazer)
 library(readr)
 library(ggplot2)
 library(dplyr)
@@ -196,6 +203,7 @@ rawDF <- mutate(rawDF,
                     SPREAD_CHANGE_2020_Q1 = as.numeric(SPREAD_CHANGE_2020_Q1),
                     SPREAD_CHANGE_2020_JAN_APR = as.numeric(SPREAD_CHANGE_2020_JAN_APR),
                     DEBT_VS_GDP_2018 = as.numeric(DEBT_VS_GDP_2018),
+                    CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018 = as.numeric(CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018),
                     CURRENT_ACCOUNT_VS_GDP_2019 = as.numeric(CURRENT_ACCOUNT_VS_GDP_2019),
                     PUBLIC_DEBT_VS_TAX_2019 = as.numeric(PUBLIC_DEBT_VS_TAX_2019),
                     EXTERNAL_DEBT_VS_GDP_2019 = as.numeric(EXTERNAL_DEBT_VS_GDP_2019),
@@ -848,4 +856,137 @@ summary(model5)
 
 model6 <- lm(SPREAD_CHANGE_2020_JAN_APR ~ DEATH_RATE_2020_04_20 + DEBT_VS_GDP_2018  + RESERVE_VS_IMPORT_MONTHS_2019 + OIL_PRICE_TOTAL_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT  -1, data = data )
 summary(model6)
+
+
+short_names <- mutate(data, 
+                      spread = SPREAD_CHANGE_2020_JAN_APR,
+                      infection_rate =INFECTION_RATE_2020_04_20,
+                      death_rate = DEATH_RATE_2020_04_20,
+                      debt_tax_ratio = PUBLIC_DEBT_VS_TAX_2019,
+                      debt_ratio = DEBT_VS_GDP_2018,
+                      months_of_reserves = RESERVE_VS_IMPORT_MONTHS_2019,
+                      oil_export_eff = OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT,
+                      cu_5yr_avg = CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018 )
+
+model1 <- lm(spread ~ death_rate + debt_tax_ratio + months_of_reserves + oil_export_eff + cu_5yr_avg , data = short_names )
+summary(model1)
+
+model2 <- lm(spread ~ death_rate + debt_tax_ratio + months_of_reserves + oil_export_eff*cu_5yr_avg , data = short_names )
+summary(model2)
+
+model3 <- lm(spread ~ death_rate + debt_tax_ratio + months_of_reserves + oil_export_eff + cu_5yr_avg -1, data = short_names )
+summary(model3)
+
+model4 <- lm(spread ~ death_rate + debt_tax_ratio + months_of_reserves + oil_export_eff*cu_5yr_avg -1, data = short_names )
+summary(model4)
+
+
+
+stargazer(model1, model2, title="Results with intercept", align=TRUE)
+
+stargazer(model3, model4, title="Results without intercept", align=TRUE)
+
+
+
+
+
+
+
+
+# From here on I run some histograms and boxplots to check for outliers
+
+
+
+ggplot(short_names, aes(x=spread)) + 
+        geom_histogram(binwidth = 1) + labs(title="SPREAD_CHANGE_2020_JAN_APR")
+ggsave("spread_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=death_rate)) + 
+        geom_histogram(binwidth = 1) + labs(title="DEATH_RATE_2020_04_20")
+ggsave("death_rate_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=debt_tax_ratio)) + 
+        geom_histogram() + labs(title="PUBLIC_DEBT_VS_TAX_2019")
+ggsave("debt_tax_ratio_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=debt_ratio)) + 
+        geom_histogram() + labs(title="PUBLIC_DEBT_VS_TAX_2019")
+ggsave("debt_ratio_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=months_of_reserves)) + 
+        geom_histogram() + labs(title="RESERVE_VS_IMPORT_MONTHS_2019")
+ggsave("months_of_reserves_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=oil_export_eff)) + 
+        geom_histogram() + labs(title="OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT")
+ggsave("oil_export_eff_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(x=cu_5yr_avg)) + 
+        geom_histogram() + labs(title="CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018")
+ggsave("cu_5yr_avg_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+
+
+
+
+
+
+
+ggplot(short_names, aes(y=spread)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("spread_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=death_rate)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("death_rate_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=debt_tax_ratio)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("debt_tax_ratio_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=debt_ratio)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("debt_ratio_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=months_of_reserves)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("months_of_reserves_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=oil_export_eff)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("oil_export_eff_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+ggplot(short_names, aes(y=cu_5yr_avg)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+ggsave("cu_5yr_avg_boxplot.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
+
+
+
+
+
+model5 <- lm(spread ~ death_rate + debt_ratio + months_of_reserves + oil_export_eff + cu_5yr_avg , data = short_names )
+summary(model5)
+
+model6 <- lm(spread ~ death_rate + debt_ratio + months_of_reserves + oil_export_eff*cu_5yr_avg , data = short_names )
+summary(model6)
+
+model7 <- lm(spread ~ death_rate + debt_ratio + months_of_reserves + oil_export_eff + cu_5yr_avg -1, data = short_names )
+summary(model7)
+
+model8 <- lm(spread ~ death_rate + debt_ratio + months_of_reserves + oil_export_eff*cu_5yr_avg -1, data = short_names )
+summary(model8)
+
+
+
+stargazer(model5, model6, title="Results with intercept when we use debt/GDP instead of debt/tax ratio", align=TRUE)
+
+stargazer(model7, model8, title="Results without intercept when we use debt/GDP instead of debt/tax ratio", align=TRUE)
+
 
