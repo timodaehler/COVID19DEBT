@@ -17,6 +17,10 @@
 #install.packages("stargazer") 
 #install.packages("stevemisc")
 #install.packages("rticles")
+#install.packages("memisc")
+#install.packages("pander")
+library(pander)
+library(memisc)
 library(stevemisc)
 library(rticles)
 library(ggplot2)
@@ -859,6 +863,7 @@ summary(model6)
 
 
 short_names <- mutate(data, 
+                      country = COUNTRY,
                       spread = SPREAD_CHANGE_2020_JAN_APR,
                       infection_rate =INFECTION_RATE_2020_04_20,
                       death_rate = DEATH_RATE_2020_04_20,
@@ -885,6 +890,18 @@ summary(model4)
 stargazer(model1, model2, title="Results with intercept", align=TRUE)
 
 stargazer(model3, model4, title="Results without intercept", align=TRUE)
+
+
+mtable1234 <- mtable('Model 1' = model1,
+                     'Model 2' = model2,
+                     'Model 3' = model3,
+                     'Model 4' = model4,
+                     summary.stats = c('R-squared','F','p','N'))
+mtable1234
+
+pander(mtable1234)
+
+
 
 
 
@@ -988,5 +1005,36 @@ summary(model8)
 stargazer(model5, model6, title="Results with intercept when we use debt/GDP instead of debt/tax ratio", align=TRUE)
 
 stargazer(model7, model8, title="Results without intercept when we use debt/GDP instead of debt/tax ratio", align=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+### determining bins and static variables
+
+ggplot(short_names, aes(x=debt_tax_ratio)) + 
+        geom_histogram() + labs(title="PUBLIC_DEBT_VS_TAX_2019")
+
+ggplot(short_names, aes(x=cu_5yr_avg)) + 
+        geom_histogram() + labs(title="CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018")
+
+
+ggplot(short_names, aes(y=debt_ratio)) + 
+        geom_boxplot(outlier.colour="red", outlier.shape=8,
+                     outlier.size=4)
+
+ggplot(short_names, aes(x=debt_ratio)) + 
+        geom_histogram() + labs(title="PUBLIC_DEBT_VS_TAX_2019")
+
+
+ggplot(short_names, aes(country, debt_ratio) ) + 
+        geom_bar()
 
 
