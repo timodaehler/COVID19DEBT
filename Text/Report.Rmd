@@ -1,5 +1,5 @@
 ---
-title: Economic impact patterns of COVID-19 on emerging markets, January-April/June 2020
+title: Economic impact patterns of COVID-19 on emerging market sovereigns, January to April 2020
 author:
 - affiliation: Dockson Chair in Economics and IR, USC and the NBER
   name: Joshua Aizenman^[aizenman@usc.edu]
@@ -117,10 +117,12 @@ In the second step, we obtained data for the outcome variable(s) and the explana
 * the exchange rate vis-à-vis the U.S. dollar
 * CDS 
 Specifically, our outcome variables are the changes of these four variables between the end of December 2019 and the end of April 2020 (June 2020). While our main outcome variable of interest is the change in spread over U.S. bonds over 4/6 months, we also look at the other variables as a robustness check. 
+
 ![Data availability for dependent variables](reportfigures/missingdata_dependentvariable.png){ width=50% }
 
 ## Explanatory variable(s)
 There are a host of explanatory variables in the dataset. Many of them are diretly sourced from the IMF World Datamapper or from the World Bank. However, due to the recency of the period of analysis and the lack of officially published data, we had to hand-code a decent chunk of the data. To do so, we looked at the IMF's country by country summary of policy responses to COVID-19 [https://www.imf.org/en/Topics/imf-and-covid19/Policy-Responses-to-COVID-19](https://www.imf.org/en/Topics/imf-and-covid19/Policy-Responses-to-COVID-19). While the following graph does not depict all explanatory variables that are in the dataset, it does show the most important ones which we also expect to be the ones that show a clearn pattern in explaning the economic fragility of emerging markets. 
+
 ![Data availability for explantory variables](reportfigures/missingdata_predictors.png){ width=50% }
 
 ## Data source
@@ -128,32 +130,53 @@ For the specific details on the variable definitions, the sources for each varia
 
 
 # 3. Preliminary patterns and correlations
+Our dataset comprises more than 100 potential explanatory variables. However, most of them are not of direct interest and are instead only used to calculate variables that we use in our regressions. For example, while both the population size and the mortality is in the dataset, what is ultimately interesting is the standardized mortality rate per 100,000 people. As such, we do not show correlation matrices of all potential explantory variables but focus instead on variables that could be used in the regressions. For ease of overview, we devide the respective explanatory variables into four clusters:
+
+* Variables related to the pandemic such as whether a quarantine is in place, infection rates, mortality rates etc.
+* Variables related to fiscal fitness of sovereigns such as debt ratios, reserves etc. 
+* Variables related to monetary aspects such as whether a sovereign has a swap line etc.
+* Variables related to the effect of oil dependence of a sovereign such as the oil share of exports etc.
+
+## Correlation matrices
+
+![Correlation matrix of spread vs explantory variables from the epidemiologic cluster](reportfigures/Corrmatrix_spread_vs_covid.png){ width=50% }
+
+![Correlation matrix of spread vs explantory variables from the fiscal cluster](reportfigures/Corrmatrix_spread_vs_fiscal.png){ width=50% }
+
+![Correlation matrix of spread vs explantory variables from the monetary cluster](reportfigures/Corrmatrix_spread_vs_monetary.png){ width=50% }
+
+![Correlation matrix of spread vs explantory variables from the oil cluster](reportfigures/Corrmatrix_spread_vs_oil.png){ width=50% }
+
+## Correlation heat maps
+
+![Correlation heatmap of spread vs explantory variables from the epidemiologic cluster](reportfigures/Corrplot_spread_vs_covid.png){ width=50% }
+
+![Correlation heatmap of spread vs explantory variables from the fiscal cluster](reportfigures/Corrplot_spread_vs_fiscal.png){ width=50% }
+
+![Correlation heatmap of spread vs explantory variables from the monetary cluster](reportfigures/Corrplot_spread_vs_monetary.png){ width=50% }
+
+![Correlation heatmap of spread vs explantory variables from the oil cluster](reportfigures/Corrplot_spread_vs_oil.png){ width=50% }
 
 
 
 # 4. Econometric results
 
+![Regresson results using debt to tax ratio, with intercept](reportfigures/BEFORE_Regression__ouputs_when_using_debt_tax_ratio_intercept.png){ width=50% }
+
+![Regresson results using debt to tax ratio, no intercept](reportfigures/BEFORE_Regression__ouputs_when_using_debt_tax_ratio_nointercept.png){ width=50% }
+
+
+![Regresson results using debt gdp ratio, with intercept](reportfigures/AFTER_Regression_outputs_when_using_debt_gdp_ratio_intercept.png){ width=50% }
+
+![Regresson results using debt gdp ratio, no intercept](reportfigures/AFTER_Regression_outputs_when_using_debt_gdp_ratio_nointercept.png){ width=50% }
+
+
+
+
 
 # 5. Conclusion
 
+As stated in the introduction, this paper is preliminary. As more data becomes avaiable with the relase of June figures, the whole analysis will be rerun to see if the results align more with theoretical expectations or if there's potential variables that we have missed. 
 
 
 
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
-```
-
-# Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

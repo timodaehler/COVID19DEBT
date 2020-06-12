@@ -39,46 +39,6 @@
 
 \setcounter{secnumdepth}{0}
 
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
 
 \usepackage{graphicx,grffile}
@@ -92,11 +52,11 @@
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
 
 
-\title{Economic impact patterns of COVID-19 on emerging markets,
-January-April/June 2020 \thanks{We gratefully acknowledge the financial support by the Dockson Chair and
+\title{Economic impact patterns of COVID-19 on emerging market sovereigns,
+January to April 2020 \thanks{We gratefully acknowledge the financial support by the Dockson Chair and
 the Center of International Studies at USC. Github repository:
 \url{https://github.com/timodaehler/COVID19DEBT}. \textbf{Current
-version:} June 09, 2020.}  }
+version:} June 12, 2020.}  }
 
 
 
@@ -153,8 +113,8 @@ version:} June 09, 2020.}  }
             bookmarks=true,
             pdfauthor={Joshua Aizenman\footnote{\href{mailto:aizenman@usc.edu}{\nolinkurl{aizenman@usc.edu}}} (Dockson Chair in Economics and IR, USC and the NBER) and Yothin Jinjarak\footnote{\href{mailto:yothin.jinjarak@vuw.ac.nz}{\nolinkurl{yothin.jinjarak@vuw.ac.nz}}} (School of Economics and Finance, VUW, New Zealand) and Timo B. Dähler\footnote{\href{mailto:daehler@usc.edu}{\nolinkurl{daehler@usc.edu}}} (SIR, USC)},
              pdfkeywords = {COVID-19, pandemic, emerging markets, sovereign debt},  
-            pdftitle={Economic impact patterns of COVID-19 on emerging markets,
-January-April/June 2020},
+            pdftitle={Economic impact patterns of COVID-19 on emerging market sovereigns,
+January to April 2020},
             colorlinks=true,
             citecolor=blue,
             urlcolor=blue,
@@ -368,8 +328,13 @@ explanatory variables.
   (June 2020). While our main outcome variable of interest is the change
   in spread over U.S. bonds over 4/6 months, we also look at the other
   variables as a robustness check.
-  \includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/missingdata_dependentvariable.png}
 \end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/missingdata_dependentvariable.png}
+\caption{Data availability for dependent variables}
+\end{figure}
 
 \hypertarget{explanatory-variables}{%
 \subsection{Explanatory variable(s)}\label{explanatory-variables}}
@@ -385,7 +350,12 @@ While the following graph does not depict all explanatory variables that
 are in the dataset, it does show the most important ones which we also
 expect to be the ones that show a clearn pattern in explaning the
 economic fragility of emerging markets.
+
+\begin{figure}
+\centering
 \includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/missingdata_predictors.png}
+\caption{Data availability for explantory variables}
+\end{figure}
 
 \hypertarget{data-source}{%
 \subsection{Data source}\label{data-source}}
@@ -398,45 +368,128 @@ each variable, as well as units and further information, see the sheet
 \section{3. Preliminary patterns and
 correlations}\label{preliminary-patterns-and-correlations}}
 
+Our dataset comprises more than 100 potential explanatory variables.
+However, most of them are not of direct interest and are instead only
+used to calculate variables that we use in our regressions. For example,
+while both the population size and the mortality is in the dataset, what
+is ultimately interesting is the standardized mortality rate per 100,000
+people. As such, we do not show correlation matrices of all potential
+explantory variables but focus instead on variables that could be used
+in the regressions. For ease of overview, we devide the respective
+explanatory variables into four clusters:
+
+\begin{itemize}
+\tightlist
+\item
+  Variables related to the pandemic such as whether a quarantine is in
+  place, infection rates, mortality rates etc.
+\item
+  Variables related to fiscal fitness of sovereigns such as debt ratios,
+  reserves etc.
+\item
+  Variables related to monetary aspects such as whether a sovereign has
+  a swap line etc.
+\item
+  Variables related to the effect of oil dependence of a sovereign such
+  as the oil share of exports etc.
+\end{itemize}
+
+\hypertarget{correlation-matrices}{%
+\subsection{Correlation matrices}\label{correlation-matrices}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrmatrix_spread_vs_covid.png}
+\caption{Correlation matrix of spread vs explantory variables from the
+epidemiologic cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrmatrix_spread_vs_fiscal.png}
+\caption{Correlation matrix of spread vs explantory variables from the
+fiscal cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrmatrix_spread_vs_monetary.png}
+\caption{Correlation matrix of spread vs explantory variables from the
+monetary cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrmatrix_spread_vs_oil.png}
+\caption{Correlation matrix of spread vs explantory variables from the
+oil cluster}
+\end{figure}
+
+\hypertarget{correlation-heat-maps}{%
+\subsection{Correlation heat maps}\label{correlation-heat-maps}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrplot_spread_vs_covid.png}
+\caption{Correlation heatmap of spread vs explantory variables from the
+epidemiologic cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrplot_spread_vs_fiscal.png}
+\caption{Correlation heatmap of spread vs explantory variables from the
+fiscal cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrplot_spread_vs_monetary.png}
+\caption{Correlation heatmap of spread vs explantory variables from the
+monetary cluster}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/Corrplot_spread_vs_oil.png}
+\caption{Correlation heatmap of spread vs explantory variables from the
+oil cluster}
+\end{figure}
+
 \hypertarget{econometric-results}{%
 \section{4. Econometric results}\label{econometric-results}}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/BEFORE_Regression__ouputs_when_using_debt_tax_ratio_intercept.png}
+\caption{Regresson results using debt to tax ratio, with intercept}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/BEFORE_Regression__ouputs_when_using_debt_tax_ratio_nointercept.png}
+\caption{Regresson results using debt to tax ratio, no intercept}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/AFTER_Regression_outputs_when_using_debt_gdp_ratio_intercept.png}
+\caption{Regresson results using debt gdp ratio, with intercept}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth,height=\textheight]{reportfigures/AFTER_Regression_outputs_when_using_debt_gdp_ratio_nointercept.png}
+\caption{Regresson results using debt gdp ratio, no intercept}
+\end{figure}
 
 \hypertarget{conclusion}{%
 \section{5. Conclusion}\label{conclusion}}
 
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see \url{http://rmarkdown.rstudio.com}.
-
-When you click the \textbf{Knit} button a document will be generated
-that includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{summary}\NormalTok{(cars)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-\end{verbatim}
-
-\hypertarget{including-plots}{%
-\section{Including Plots}\label{including-plots}}
-
-You can also embed plots, for example:
-
-\includegraphics{Report_files/figure-latex/pressure-1.pdf}
-
-Note that the \texttt{echo\ =\ FALSE} parameter was added to the code
-chunk to prevent printing of the R code that generated the plot.
+As stated in the introduction, this paper is preliminary. As more data
+becomes avaiable with the relase of June figures, the whole analysis
+will be rerun to see if the results align more with theoretical
+expectations or if there's potential variables that we have missed.
 
 \newpage
 \singlespacing 
