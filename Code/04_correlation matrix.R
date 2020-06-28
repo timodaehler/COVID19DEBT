@@ -238,7 +238,10 @@ rawDF <- mutate(rawDF,
                     CDS_5YR_CHANGE_PERCENT_2020_Q1 = as.numeric(CDS_5YR_CHANGE_PERCENT_2020_Q1), 
                     CDS_5YR_CHANGE_2020_Q1 = as.numeric(CDS_5YR_CHANGE_2020_Q1), 
                     CDS_5YR_CHANGE_2020_JAN_APR = as.numeric(CDS_5YR_CHANGE_2020_JAN_APR), 
-                    SWF_VOLUME = as.numeric(SWF_VOLUME)    )
+                    SWF_VOLUME = as.numeric(SWF_VOLUME),    
+                    REMITTANCES_VS_GDP_2018 = as.numeric(REMITTANCES_VS_GDP_2018),
+                    TOURISM_RECEIPTS_VS_EXPORTS_2018 = as.numeric(TOURISM_RECEIPTS_VS_EXPORTS_2018), 
+                    TOURISM_RECEIPTS_VS_GDP_2018 = as.numeric(TOURISM_RECEIPTS_VS_GDP_2018) )
 
 
 
@@ -927,7 +930,7 @@ ggplot(short_names, aes(x=debt_tax_ratio)) +
 ggsave("debt_tax_ratio_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 ggplot(short_names, aes(x=debt_ratio)) + 
-        geom_histogram() + labs(title="PUBLIC_DEBT_VS_TAX_2019")
+        geom_histogram(bins = 3) + labs(title="DEBT_VS_GDP_2018") 
 ggsave("debt_ratio_hist.png", path = "/Users/timodaehler/Desktop/COVID19DEBT/Plots/04")
 
 ggplot(short_names, aes(x=months_of_reserves)) + 
@@ -1036,5 +1039,27 @@ ggplot(short_names, aes(x=debt_ratio)) +
 
 ggplot(short_names, aes(country, debt_ratio) ) + 
         geom_bar()
+
+
+
+
+
+#New regression
+short_names <- mutate(data, 
+                      country = COUNTRY,
+                      spread_change = SPREAD_CHANGE_2020_JAN_APR,
+                      infection_rate =INFECTION_RATE_2020_04_20,
+                      death_rate = DEATH_RATE_2020_04_20,
+                      debt_tax_ratio = PUBLIC_DEBT_VS_TAX_2019,
+                      debt_ratio = DEBT_VS_GDP_2018,
+                      months_of_reserves = RESERVE_VS_IMPORT_MONTHS_2019,
+                      oil_export_eff = OIL_PRICE_EXPORT_EFFECT_VS_GDP_2018_VS_1Q2020_PERCENT,
+                      cu_5yr_avg = CURRENT_ACCOUNT_VS_GDP_AVG_2014_2018,
+                      tourism_receipts = TOURISM_RECEIPTS_VS_GDP_2018,
+                      remittances = REMITTANCES_VS_GDP_2018)
+
+model1 <- lm(spread_change ~ death_rate + oil_export_eff + tourism_receipts +remittances + cu_5yr_avg + months_of_reserves + , data = short_names )
+summary(model1)
+
 
 
